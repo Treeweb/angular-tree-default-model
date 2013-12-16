@@ -1,7 +1,7 @@
 {
-  "author": "Pascal Precht",
-  "name": "angular-component-seed",
-  "description": "Seed for reusable Angular components.",
+  "author": "Ruben Barilani",
+  "name": "0.0.1beta",
+  "description": "Angular Default Model Directive.",
   "version": "0.1.1",
   "homepage": "http://github.com/PascalPrecht/angular-component-seed",
   "repository": {

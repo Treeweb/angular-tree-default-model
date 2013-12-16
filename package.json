@@ -1,13 +1,13 @@
 {
-  "name": "angular-component-seed",
-  "version": "0.1.1",
-  "description": "Seed for reusable Angular components.",
+  "name": "angular-tree-default-model",
+  "version": "0.0.1beta",
+  "description": "Angular Default Model Directive.",
   "main": "component.js",
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start --browsers Firefox --single-run"
+    "test": "./node_modules/karma/bin/karma start --browsers PhantomJS --single-run"
   },
   "author": {
-    "name": "Pascal Precht"
+    "name": "Ruben Barilani"
   },
   "license": "WTFPL",
   "devDependencies": {

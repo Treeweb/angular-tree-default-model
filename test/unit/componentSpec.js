@@ -1,107 +1,107 @@
 describe('author.component-name', function() {
 
+    beforeEach(module('tree.default-model'));
 
-    beforeEach(module('tree.default-model', function($provide) {
-        $provide.value('$window', {
-            alert: jasmine.createSpy('alert')
-        });
-    }));
+    describe('treeDefaultModel Directive', function() {
 
-    it('should have thingService', function() {
-        inject(function(thingService) {
-            expect(thingService).toBeDefined();
-        });
-    });
 
-    describe('thingService', function() {
-
-        var thingService;
-
-        beforeEach(inject(function(_thingService_) {
-            thingService = _thingService_;
-        }));
-
-        it('should be an object', function() {
-            expect(typeof thingService).toBe('object');
-        });
-
-        it('should have a method sayHello()', function() {
-            expect(thingService.sayHello).toBeDefined();
-        });
-
-        describe('sayHello()', function() {
-
-            it('should be a function', function() {
-                expect(typeof thingService.sayHello).toBe('function');
-            });
-
-            it('should return a string', function() {
-                expect(typeof thingService.sayHello()).toBe('string');
-            });
-
-            it('should return \'Hello!\'', function() {
-                expect(thingService.sayHello()).toEqual('Hello!');
-            });
-        });
-    });
-
-    describe('treeDefaultModel', function() {
-        var element;
         var $scope;
-        var modelValue = 'Hello';
+        var $compile;
 
+        var markup = "<input type='text' tree-default-model='defaultModelValue' ng-model='modelValue'>";
+        var element;
+        var defaultModelValue = 'Hello World!';
 
-        beforeEach(inject(function ($compile, $rootScope) {
-            $scope  = $rootScope;
-            element = angular.element("<textarea tree-default-model='modelValue' ng-model='modelValue'></textarea>");
+        var compileElement = function (markup, scope) {
+            var el = $compile(markup)(scope);
+            scope.$digest();
+            return el;
+        };
 
-            $scope.modelValue = modelValue;
+        beforeEach(inject(function (_$compile_, _$rootScope_) {
+            $compile = _$compile_;
+            $scope   = _$rootScope_;
 
-            $compile(element)($scope);
-            $scope.$digest();
+            $scope.defaultModelValue = defaultModelValue;
+            $scope.modelValue = defaultModelValue;
+            element = compileElement(markup, $scope);
         }));
 
-         it('should empty the model on click on the element', function ($window) {
-            element.click();
 
-            $scope.$digest();
-
-            expect($scope.modelValue).toBe('');
+        it('should works', function () {
+            expect(element.val()).toBe(defaultModelValue);
         });
 
-
-        it('should empty the model on click on the element',inject(function ($window) {
+        it('should empty ngModel on click if current ngModel is equal to defaultModel', function () {
             element.click();
+            expect(element.val()).toBe('');
+        });
+
+        it('should NOT empty ngModel on click if current ngModel is NOT equal to defaultModel', function () {
+            var newModelValue = 'Foo';
+
+            $scope.modelValue = newModelValue;
             $scope.$digest();
-
-            expect($scope.modelValue).toBe('');
-        }));
-
-        it('should refill model on blur if current value is empty',inject(function ($window) {
             element.click();
-            $scope.$digest();
+            expect(element.val()).toBe(newModelValue);
+        });
+
+        it('should refill with defaultModel on blur if current ngModel is empty' , function () {
+            element.click();
+            expect(element.val()).toBe('');
 
             element.blur();
-            $scope.$digest();
+            expect(element.val()).toBe(defaultModelValue);
+        });
 
-            expect($scope.modelValue).toBe(modelValue);
-        }));
-
-        it('should not refill model on blur if current value is not empty',inject(function ($window) {
-            var userInput = 'hal hal';
+        it('should NOT refill with defaultModel on blur if current ngModel is empty' , function () {
+            var newModelValue = 'Foo';
 
             element.click();
-            $scope.$digest();
+            expect(element.val()).toBe('');
 
-            element.val(userInput);
+            $scope.modelValue = newModelValue;
             $scope.$digest();
+            expect(element.val()).toBe(newModelValue);
 
             element.blur();
+            expect(element.val()).toBe(newModelValue);
+        });
+
+        it('should refill with the new dafaultModel if current ngModel is empty' , function (){
+            $scope.defaultModelValue = 'Sucker!';
             $scope.$digest();
 
-            expect($scope.modelValue).not.toBe(modelValue);
+            expect(element.val()).toBe($scope.defaultModelValue);
+        });
 
-        }));
+        it('should refill with the new dafaultModel if current ngModel is empty2' , function (){
+            var newDefaultModelValue = 'Sucker!';
+            var newModelValue = 'Bar';
+
+            $scope.modelValue = newModelValue;
+            $scope.defaultModelValue = newDefaultModelValue;
+            $scope.$digest();
+            expect(element.val()).toBe(newModelValue);
+
+            $scope.modelValue = '';
+            $scope.$digest();
+            expect(element.val()).toBe('');
+
+            element.blur();
+            expect(element.val()).toBe(newDefaultModelValue);
+            expect($scope.modelValue).toBe(newDefaultModelValue);
+        });
+
+        it('should NOT refill with the new dafaultModelValue if current model value is NOT empty' , function (){
+            var newDefaultModelValue = 'Sucker!';
+            var newModelValue = 'Bar';
+
+            $scope.modelValue = newModelValue;
+            $scope.defaultModelValue = newDefaultModelValue;
+            $scope.$digest();
+            expect(element.val()).toBe(newModelValue);
+        });
 
 
     });
