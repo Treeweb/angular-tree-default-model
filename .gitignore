@@ -5,6 +5,9 @@ bower_components
 dist
 demo/
 
+coverage
+test-results.xml
+
 #
 #
 #

@@ -18,16 +18,15 @@ module.exports = function(config) {
 
     frameworks: ['jasmine'],
 
-
     // list of files to exclude
     exclude: [
 
     ],
 
-
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit'
     reporters: ['progress'],
+
 
     // web server port
     port: 9876,

@@ -4,6 +4,7 @@ angular
     .module('tree.default-model', ['ng'])
 
     .directive('treeDefaultModel', [function () {
+        'use strict';
 
         return {
             require : 'ngModel',
@@ -16,7 +17,7 @@ angular
                 var defaultModel = scope.treeDefaultModel;
                 var empty = scope.treeDefaultModelEmptyValue || '';
 
-                scope.$watch('treeDefaultModel' , function (newVal, oldVal){
+                scope.$watch('treeDefaultModel' , function (newVal){
                     if(!angular.isUndefined(newVal)) {
 
                         if(defaultModel === scope.ngModel) {

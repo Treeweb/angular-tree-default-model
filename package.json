@@ -4,7 +4,7 @@
   "description": "Angular Default Model Directive.",
   "main": "component.js",
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start --browsers PhantomJS --single-run"
+    "test": "./node_modules/karma/bin/karma start --browsers Chrome --single-run"
   },
   "author": {
     "name": "Ruben Barilani"
@@ -19,7 +19,9 @@
     "grunt-karma": "~0.7.x",
     "grunt-conventional-changelog": "~1.0.x",
     "grunt-ngmin": "~0.0.3",
-    "load-grunt-tasks" : "~0.2.0",
-    "lodash": "~2.4.x"
+    "load-grunt-tasks": "~0.2.0",
+    "lodash": "~2.4.x",
+    "karma-junit-reporter": "~0.2.1",
+    "karma-coverage": "~0.1.4"
   }
 }
