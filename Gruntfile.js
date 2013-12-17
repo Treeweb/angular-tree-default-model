@@ -19,7 +19,17 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('bower.json'),
         meta: {
-            banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %>\n' + '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' + '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' + ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
+            banner: '/*!\n' +
+                ' * <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd hh:mm") %> \n' +
+                '<%= pkg.homepage ? " * " + pkg.homepage + "" : "" %> \n' +
+                ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> \n' +
+                ' * Licensed <%= pkg.license %> ' +
+                '\n*/'
+
+        },
+        buildFile: {
+            concat : 'dist/<%= pkg.name %>-<%= pkg.version %>.js',
+            minified : 'dist/<%= pkg.name %>-<%= pkg.version %>.min.js'
         },
         watch: {
             scripts: {
@@ -36,19 +46,7 @@ module.exports = function(grunt) {
                 }
             }
         },
-        concat: {
-            src: {
-                src: ['src/**/*.js'],
-                dest: 'dist/angular-component-<%= pkg.version %>.js'
-            }
-        },
-        uglify: {
-            src: {
-                files: {
-                    'dist/angular-component-<%= pkg.version %>.min.js': '<%= concat.src.dest %>'
-                }
-            }
-        },
+
         karma: {
             unit: {
                 options: karmaConfig('karma.conf.js', {
@@ -83,10 +81,50 @@ module.exports = function(grunt) {
                 dest: 'CHANGELOG.md'
             }
         },
+        concat: {
+            src: {
+                src: ['src/**/*.js'],
+                dest: '<%= buildFile.concat %>'
+            }
+        },
         ngmin: {
             src: {
                 src: '<%= concat.src.dest %>',
-                dest: '<%= concat.src.dest %>'
+                dest: '.tmp/<%= concat.src.dest %>.ng-min.js'
+            }
+        },
+        uglify: {
+            src: {
+                files: {
+                    '<%= buildFile.minified %>': '<%= ngmin.src.dest %>'
+                }
+            }
+        },
+        copy: {
+            build: {
+                files: [
+                    {src: ['*.md','LICENSE'], dest: 'dist/', filter: 'isFile'}
+                ]
+            }
+        },
+        clean: {
+            build: {
+                src: ['dist/']
+            },
+            tmp: {
+                src: ['.tmp']
+            }
+        },
+        usebanner: {
+            build: {
+                options: {
+                    position: 'top',
+                    banner: '<%= meta.banner %>',
+                    linebreak: true
+                },
+                files: {
+                    src: [ '<%= buildFile.concat %>', '<%= buildFile.minified %>' ]
+                }
             }
         }
     });
@@ -94,6 +132,17 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jshint', 'karma:unit']);
     grunt.registerTask('test', ['karma:unit']);
     grunt.registerTask('test-server', ['karma:server']);
-    grunt.registerTask('build', ['jshint', 'karma:unit', 'concat', 'ngmin', 'uglify']);
     grunt.registerTask('jenkins', ['jshint', 'karma:jenkins']);
+
+    grunt.registerTask('build', [
+        'jshint',
+        'karma:unit',
+        'clean',
+        'concat',
+        'ngmin',
+        'uglify',
+        'copy:build',
+        'usebanner:build',
+        'clean:tmp'
+    ]);
 };

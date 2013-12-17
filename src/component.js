@@ -21,11 +21,10 @@ angular
                     if(!angular.isUndefined(newVal)) {
 
                         if(defaultModel === scope.ngModel) {
-                            defaultModel = newVal;
-                            scope.ngModel = defaultModel;
-                        }else {
-                            defaultModel = newVal;
+                            scope.ngModel = newVal;
                         }
+
+                        defaultModel = newVal;
                     }
                 });
 
