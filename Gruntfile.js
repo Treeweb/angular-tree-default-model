@@ -103,13 +103,13 @@ module.exports = function(grunt) {
         copy: {
             build: {
                 files: [
-                    {src: ['*.md','LICENSE'], dest: 'dist/', filter: 'isFile'}
+                    {src: ['*.md','LICENSE','.travis.yml'], dest: 'dist/', filter: 'isFile'}
                 ]
             }
         },
         clean: {
             build: {
-                src: ['dist/']
+                src: ['dist/*','!dist/.git*']
             },
             tmp: {
                 src: ['.tmp']
@@ -125,6 +125,15 @@ module.exports = function(grunt) {
                 files: {
                     src: [ '<%= buildFile.concat %>', '<%= buildFile.minified %>' ]
                 }
+            }
+        },
+        buildcontrol: {
+            options: {
+                dir: 'dist',
+                commit: true,
+                push: true,
+                message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%',
+                branch: 'dist'
             }
         }
     });
