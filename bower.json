@@ -1,19 +1,23 @@
 {
-  "author": "Ruben Barilani",
-  "name": "angular-tree-default-model",
-  "description": "Angular Default Model Directive.",
+  "name": "angular-tree-default-model-demo",
   "version": "0.0.1-alpha",
   "homepage": "https://github.com/Treeweb/angular-tree-default-model",
-  "license":"WTFPL",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Treeweb/angular-tree-default-model"
-  },
+  "authors": [
+    "Ruben Barilani <ruben.barilani.dev@gmail.com>"
+  ],
+  "main": "app.js",
+  "license": "WTFPL",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "dependencies": {
     "angular": "~1.2.3",
-    "jquery": "~2.0.3"
-  },
-  "devDependencies": {
-    "angular-mocks": "~1.2.3"
+    "jquery": "~2.0.3",
+    "angular-tree-default-model": "https://github.com/Treeweb/angular-tree-default-model/archive/distribution.zip"
   }
 }
