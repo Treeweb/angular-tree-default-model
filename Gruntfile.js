@@ -108,7 +108,7 @@ module.exports = function(grunt) {
             },
             ghPages : {
                 files: [
-                    {expand: true, flatten: true, src: ['demo/*'], dest: 'gh-pages/', filter: 'isFile'}
+                    {expand: true, flatten: true, src: ['demo/*','!demo/bower_components'], dest: 'gh-pages/', filter: 'isFile'}
                 ]
             }
         },
@@ -117,7 +117,7 @@ module.exports = function(grunt) {
                 src: ['dist/*','!dist/.git*']
             },
             ghPages: {
-                src: ['gh-pages/*','!dist/.git*']
+                src: ['gh-pages/*','!gh-pages/.git*']
             }
         },
         usebanner: {
@@ -153,6 +153,17 @@ module.exports = function(grunt) {
                     message: 'Built %sourceName% gh-pages from commit %sourceCommit% on branch %sourceBranch%'
                 }
             }
+        },
+        shell: {
+            ghPagesBowerInstall: {
+                command: 'bower install',
+                options: {
+                    stdout: true,
+                    execOptions: {
+                        cwd: 'gh-pages'
+                    }
+                }
+            }
         }
     });
 
@@ -180,6 +191,7 @@ module.exports = function(grunt) {
     grunt.registerTask('gh-pages', [
         'clean:ghPages',
         'copy:ghPages',
+        'shell:ghPagesBowerInstall',
         'buildcontrol:ghPages',
         'clean:ghPages'
     ]);
