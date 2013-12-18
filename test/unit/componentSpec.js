@@ -1,4 +1,4 @@
-describe('author.component-name', function() {
+describe('tree.default-model', function() {
 
     beforeEach(module('tree.default-model'));
 

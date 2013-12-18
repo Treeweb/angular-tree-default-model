@@ -3,7 +3,6 @@ node_modules
 components
 bower_components
 dist
-demo/
 
 coverage
 test-results.xml
