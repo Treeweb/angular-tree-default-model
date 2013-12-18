@@ -6,3 +6,7 @@
 [![Build Status](https://travis-ci.org/Treeweb/angular-tree-default-model.png)](https://travis-ci.org/Treeweb/angular-tree-default-model.png)
 
 -----------------------------
+
+## Demo
+
+Go to demo page : [demo](http://treeweb.github.io/angular-tree-default-model/)
