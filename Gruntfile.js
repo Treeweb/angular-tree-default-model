@@ -90,13 +90,13 @@ module.exports = function(grunt) {
         ngmin: {
             src: {
                 src: '<%= concat.src.dest %>',
-                dest: '.tmp/<%= concat.src.dest %>.ng-min.js'
+                dest: '<%= concat.src.dest %>'
             }
         },
         uglify: {
             src: {
                 files: {
-                    '<%= buildFile.minified %>': '<%= ngmin.src.dest %>'
+                    '<%= buildFile.minified %>': '<%= concat.src.dest %>'
                 }
             }
         },
@@ -105,14 +105,19 @@ module.exports = function(grunt) {
                 files: [
                     {src: ['*.md','LICENSE','.travis.yml'], dest: 'dist/', filter: 'isFile'}
                 ]
+            },
+            ghPages : {
+                files: [
+                    {expand: true, flatten: true, src: ['demo/*'], dest: 'gh-pages/', filter: 'isFile'}
+                ]
             }
         },
         clean: {
             build: {
                 src: ['dist/*','!dist/.git*']
             },
-            tmp: {
-                src: ['.tmp']
+            ghPages: {
+                src: ['gh-pages/*','!dist/.git*']
             }
         },
         usebanner: {
@@ -139,6 +144,14 @@ module.exports = function(grunt) {
                     branch: 'distribution',
                     remote: 'https://github.com/Treeweb/angular-tree-default-model.git'
                 }
+            },
+            ghPages: {
+                options: {
+                    dir : 'demo',
+                    branch: 'gh-pages',
+                    remote: 'https://github.com/Treeweb/angular-tree-default-model.git',
+                    message: 'Built %sourceName% gh-pages from commit %sourceCommit% on branch %sourceBranch%'
+                }
             }
         }
     });
@@ -163,5 +176,12 @@ module.exports = function(grunt) {
     grunt.registerTask('distribution', [
         'build',
         'buildcontrol:dist'
+    ]);
+
+    grunt.registerTask('gh-pages', [
+        'clean:ghPages',
+        'copy:ghPages',
+        'buildcontrol:ghPages',
+        'clean:ghPages'
     ]);
 };
