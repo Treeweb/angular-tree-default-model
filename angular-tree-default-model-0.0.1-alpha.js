@@ -1,3 +1,9 @@
+/*!
+ * angular-tree-default-model - v0.0.1-alpha - 2013-12-18 08:12 
+ * https://github.com/Treeweb/angular-tree-default-model 
+ * Copyright (c) 2013  
+ * Licensed WTFPL 
+*/
 
 angular
 
