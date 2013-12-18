@@ -28,8 +28,8 @@ module.exports = function(grunt) {
 
         },
         buildFile: {
-            concat : 'dist/<%= pkg.name %>-<%= pkg.version %>.js',
-            minified : 'dist/<%= pkg.name %>-<%= pkg.version %>.min.js'
+            concat : 'dist/<%= pkg.name %>.js',
+            minified : 'dist/<%= pkg.name %>.min.js'
         },
         watch: {
             scripts: {
@@ -103,13 +103,13 @@ module.exports = function(grunt) {
         copy: {
             build: {
                 files: [
-                    {src: ['*.md','LICENSE'], dest: 'dist/', filter: 'isFile'}
+                    {src: ['*.md','LICENSE','.travis.yml'], dest: 'dist/', filter: 'isFile'}
                 ]
             }
         },
         clean: {
             build: {
-                src: ['dist/']
+                src: ['dist/*','!dist/.git*']
             },
             tmp: {
                 src: ['.tmp']
@@ -124,6 +124,20 @@ module.exports = function(grunt) {
                 },
                 files: {
                     src: [ '<%= buildFile.concat %>', '<%= buildFile.minified %>' ]
+                }
+            }
+        },
+        buildcontrol: {
+            options: {
+                commit: true,
+                push: true,
+                message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+            },
+            dist: {
+                options: {
+                    dir: 'dist',
+                    branch: 'distribution',
+                    remote: 'https://github.com/Treeweb/angular-tree-default-model.git'
                 }
             }
         }
@@ -144,5 +158,10 @@ module.exports = function(grunt) {
         'copy:build',
         'usebanner:build',
         'clean:tmp'
+    ]);
+
+    grunt.registerTask('distribution', [
+        'build',
+        'buildcontrol:dist'
     ]);
 };
