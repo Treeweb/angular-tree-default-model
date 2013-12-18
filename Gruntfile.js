@@ -169,8 +169,7 @@ module.exports = function(grunt) {
         'ngmin',
         'uglify',
         'copy:build',
-        'usebanner:build',
-        'clean:tmp'
+        'usebanner:build'
     ]);
 
     grunt.registerTask('distribution', [
