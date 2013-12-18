@@ -26,7 +26,7 @@ When **npm** is installed, use it to install the needed npm packages:
 To get the source of this project clone the git repository via:
 
 ````
-$ git clone https://github.com/PascalPrecht/angular-component-seed
+$ git clone https://github.com/Treeweb/angular-tree-deafult-model
 ````
 
 This will clone the complete source to your local machine. Navigate to the project folder
@@ -64,8 +64,8 @@ source. After running this task, you'll find the following files in a generated
 <code>dist</code> folder:
 
 ````
-dist/angular-<component-name>-x.x.x.js
-dist/angular-<component-name>-x.x.x.min.js
+dist/<component-name>.js
+dist/<component-name>.min.js
 ````
 
 #### <code>grunt watch</code>
