@@ -139,6 +139,13 @@ module.exports = function(grunt) {
                     branch: 'distribution',
                     remote: 'https://github.com/Treeweb/angular-tree-default-model.git'
                 }
+            },
+            ghPages: {
+                options: {
+                    dir : 'demo',
+                    branch: 'gh-pages',
+                    remote: 'https://github.com/Treeweb/angular-tree-default-model.git'
+                }
             }
         }
     });
