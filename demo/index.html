@@ -28,47 +28,47 @@
     </script>
 
 
-    <div class="container">
-        <div class="jumbotron">
+    <div class="container" style="max-width:520px">
+            <div class="jumbotron">
 
-            <h2>Angular Tree Default Model Directive</h2>
+                <h2>Angular Tree Default Model Directive</h2>
 
-            <form name="myForm" class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="text">Text:</label>
-                    <div class="col-sm-10">
-                        <input name="text"
-                               id="text"
-                               type="text"
-                               class="form-control"
-                               tree-default-model="defaultText"
-                               ng-model="text" />
+                <form name="myForm">
+                    <div class="form-group">
+                        <label class="control-label" for="text">Text:</label>
+                        <div>
+                            <input name="text"
+                                   id="text"
+                                   type="text"
+                                   class="form-control"
+                                   tree-default-model="defaultText"
+                                   ng-model="text" />
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="defaultText" >Default Text :</label>
-                    <div class="col-sm-10">
-                        <input name="defaultText"
-                               id="defaultText"
-                               type="text"
-                               class="form-control"
-                               ng-model="defaultText" />
+                    <div class="form-group">
+                        <label class="control-label" for="defaultText" >Default Text :</label>
+                        <div>
+                            <input name="defaultText"
+                                   id="defaultText"
+                                   type="text"
+                                   class="form-control"
+                                   ng-model="defaultText" />
+                        </div>
                     </div>
+                </form>
+
+                <div>
+
+                    <h6>text</h6>
+                    <pre>{{ text }}</pre>
+
+                    <h6>defaultText</h6>
+                    <pre>{{ defaultText }}</pre>
+
                 </div>
-            </form>
-
-            <div>
-
-                <h6>text</h6>
-                <pre>{{ text }}</pre>
-
-                <h6>defaultText</h6>
-                <pre>{{ defaultText }}</pre>
 
             </div>
-
         </div>
-    </div>
 
 </body>
 </html>

@@ -24,8 +24,8 @@ module.exports = function(grunt) {
                 '<%= pkg.homepage ? " * " + pkg.homepage + "" : "" %> \n' +
                 ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> \n' +
                 ' * Licensed <%= pkg.license %> ' +
-                '\n*/'
-
+                '\n*/',
+            repositoryUrl : '<%= pkg.repository.url %>'
         },
         buildFile: {
             concat : 'dist/<%= pkg.name %>.js',
@@ -142,14 +142,14 @@ module.exports = function(grunt) {
                 options: {
                     dir: 'dist',
                     branch: 'distribution',
-                    remote: 'https://github.com/Treeweb/angular-tree-default-model.git'
+                    remote: '<%= meta.repositoryUrl %>'
                 }
             },
             ghPages: {
                 options: {
                     dir : 'demo',
                     branch: 'gh-pages',
-                    remote: 'https://github.com/Treeweb/angular-tree-default-model.git',
+                    remote: '<%= meta.repositoryUrl %>',
                     message: 'Built %sourceName% gh-pages from commit %sourceCommit% on branch %sourceBranch%'
                 }
             }
@@ -195,4 +195,5 @@ module.exports = function(grunt) {
         'buildcontrol:ghPages',
         'clean:ghPages'
     ]);
+
 };

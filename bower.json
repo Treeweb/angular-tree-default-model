@@ -7,7 +7,7 @@
   "license":"WTFPL",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Treeweb/angular-tree-default-model"
+    "url": "https://github.com/Treeweb/angular-tree-default-model.git"
   },
   "dependencies": {
     "angular": "~1.2.3",
